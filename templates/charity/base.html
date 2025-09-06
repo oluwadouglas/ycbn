@@ -1,0 +1,1694 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{{ page_title|default:"YCBN - Youth Capacity Building Network" }}{% endblock %}</title>
+    <meta name="author" content="YCBN - Youth Capacity Building Network">
+    <meta name="description" content="YCBN - Youth Capacity Building Network empowering young people through skill development and mentorship">
+    <meta name="keywords" content="YCBN, Youth Capacity Building, Skills Development, Mentorship, Education, Empowerment">
+    <meta name="robots" content="INDEX,FOLLOW">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons - Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'assets/img/favicons/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'assets/img/favicons/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'assets/img/favicons/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/favicons/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'assets/img/favicons/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/img/favicons/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/img/favicons/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'assets/img/favicons/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'assets/img/favicons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/img/favicons/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--==============================
+      Google Fonts
+    ============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <!--==============================
+        All CSS File
+    ============================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.min.css' %}">
+    <!-- Swiper Js -->
+    <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <!-- Mentor Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/mentor-styles.css' %}">
+    <!-- Custom Social Media Styles -->
+    <link rel="stylesheet" href="{% static 'assets/css/custom-social.css' %}">
+    <!-- Clubs Custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/clubs-custom.css' %}">
+    <!-- Club Cards Styling -->
+    <link rel="stylesheet" href="{% static 'assets/css/club-cards.css' %}">
+    <!-- Mentor Cards Styling -->
+    <link rel="stylesheet" href="{% static 'assets/css/mentor-cards.css' %}">
+    <!-- Partner Schools Styling -->
+    <link rel="stylesheet" href="{% static 'assets/css/partner-schools.css' %}">
+
+    <style>
+      /* Global uniform image rules - Fixed to exclude team and testimonial images */
+      .th-blog .blog-img,
+      .th-blog .blog-radius-img,
+      .donation-card .box-thumb,
+      .card .card-img-top {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        background: #f5f5f5;
+        border-radius: 8px;
+        display: block;
+      }
+      .th-blog .blog-img img,
+      .th-blog .blog-radius-img img,
+      .donation-card .box-thumb img,
+      .card .card-img-top {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      
+      /* Allow team and testimonial images to display naturally without forced aspect ratio */
+      .team-card2 .team-img,
+      .testi-box-img .testi-img {
+        overflow: hidden;
+        background: #f5f5f5;
+        border-radius: 8px;
+        display: block;
+        /* No forced aspect-ratio - let images display naturally */
+      }
+      
+      .team-card2 .team-img img,
+      .testi-box-img .testi-img {
+        width: 100%;
+        height: auto; /* Allow natural height */
+        display: block;
+        border-radius: 8px;
+      }
+      /* Nav hover & active color */
+      :root { 
+        --nav-accent: #ffc107; 
+        --green-primary: #1A685B;
+      }
+      
+      /* IMPORTANT: Override theme styles with higher specificity */
+      
+      /* Navigation menu keeps green background - no changes needed for main nav */
+      .main-menu > ul > li > a:hover,
+      .main-menu > ul > li.current-menu-item > a,
+      .main-menu > ul > li > a.active { 
+        color: var(--nav-accent) !important;
+      }
+      
+      /* Submenu styles remain unchanged */
+      .main-menu .sub-menu li > a:hover,
+      .main-menu .sub-menu li.current-menu-item > a { 
+        color: var(--nav-accent) !important; 
+      }
+      
+      /* Mobile menu styles */
+      .th-mobile-menu ul li > a:hover,
+      .th-mobile-menu ul li.current-menu-item > a { 
+        color: var(--nav-accent) !important; 
+      }
+      
+      /* CRITICAL FIX: Force header buttons to be independent of navbar styling */
+      .th-header.header-default .menu-area .header-button,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button {
+        background: transparent !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin-left: auto !important;
+        position: relative;
+        z-index: 999;
+      }
+      
+      /* Search icon - floating style */
+      .th-header.header-default .menu-area .header-button .icon-btn.searchBoxToggler,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button .icon-btn.searchBoxToggler {
+        background: transparent !important;
+        color: #333 !important;
+        border: none !important;
+        padding: 8px !important;
+        border-radius: 50% !important;
+        transition: all 0.3s ease !important;
+        margin-right: 15px !important;
+      }
+      
+      .th-header.header-default .menu-area .header-button .icon-btn.searchBoxToggler:hover,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button .icon-btn.searchBoxToggler:hover {
+        color: var(--nav-accent) !important;
+        background: rgba(255, 193, 7, 0.1) !important;
+        transform: scale(1.1) !important;
+      }
+      
+      /* Username - floating yellow text */
+      .th-header.header-default .menu-area .header-button .user-name-link,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button .user-name-link {
+        color: var(--nav-accent) !important;
+        background: transparent !important;
+        padding: 8px 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        display: inline-block !important;
+        line-height: inherit !important;
+        font-weight: 500 !important;
+        margin: 0 15px !important;
+        text-decoration: none !important;
+      }
+      
+      .th-header.header-default .menu-area .header-button .user-name-link:hover,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button .user-name-link:hover {
+        color: var(--nav-accent) !important;
+        background: transparent !important;
+        text-decoration: none !important;
+      }
+      
+      /* Auth buttons - floating with individual colors */
+      .th-header.header-default .menu-area .header-button .th-btn,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button .th-btn,
+      .th-header.header-default .menu-area .header-button form button.th-btn,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button form button.th-btn {
+        color: #fff !important;
+        border-radius: 25px !important;
+        padding: 8px 20px !important;
+        border: none !important;
+        transition: all 0.3s ease !important;
+        margin-left: 8px !important;
+        position: relative !important;
+        z-index: 1000 !important;
+        text-decoration: none !important;
+        display: inline-block !important;
+      }
+      
+      /* Hover effects for auth buttons */
+      .th-header.header-default .menu-area .header-button .th-btn:hover,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button .th-btn:hover,
+      .th-header.header-default .menu-area .header-button form button.th-btn:hover,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button form button.th-btn:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+        text-decoration: none !important;
+      }
+      
+      /* Mobile menu toggle - keep floating */
+      .th-header.header-default .menu-area .header-button .th-menu-toggle,
+      .th-header.header-default .sticky-wrapper .menu-area .header-button .th-menu-toggle {
+        background: transparent !important;
+        color: #333 !important;
+        border: none !important;
+        padding: 8px !important;
+        border-radius: 0 !important;
+        margin-left: 15px !important;
+      }
+      /* Push header buttons to far right */
+      .menu-area { display: flex; align-items: center; transition: background-color .25s ease, box-shadow .25s ease, border-color .25s ease; }
+      .menu-area .menu-area-wrap { display: flex; align-items: center; }
+      .menu-area .header-button { margin-left: auto; }
+      
+      /* TRANSPARENT FLOATING HEADER - Make header float over hero image */
+      .th-header.header-default {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        background: transparent !important;
+      }
+      
+      /* ANIMATED TOP CONTACT BAR - Scrolling contact info at the very top */
+      .animated-contact-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 35px;
+        background: linear-gradient(135deg, #1A685B 0%, #228B22 50%, #32CD32 100%);
+        overflow: hidden;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+      
+      .contact-scroll-container {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        animation: scrollLeft 25s linear infinite;
+        white-space: nowrap;
+      }
+      
+      .contact-scroll-item {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 60px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      
+      .contact-scroll-item i {
+        margin-right: 8px;
+        font-size: 14px;
+        color: #FFD700;
+        filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+      }
+      
+      .contact-scroll-item a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      
+      .contact-scroll-item a:hover {
+        color: #FFD700;
+      }
+      
+      @keyframes scrollLeft {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+      
+      /* Hide the old top section completely */
+      .th-header.header-default .menu-top {
+        display: none !important;
+      }
+      
+      /* RESTRUCTURED MAIN NAVIGATION - All on same line */
+      .th-header.header-default .sticky-wrapper {
+        margin-top: 35px;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-bottom: none !important;
+        transition: all 0.3s ease;
+      }
+      
+      .th-header.header-default .menu-area {
+        background: transparent !important;
+        padding: 15px 0;
+        transition: all 0.3s ease;
+      }
+      
+      .th-header.header-default .menu-area-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background: transparent !important;
+      }
+      
+      /* Logo section - always floating */
+      .header-logo-section {
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+      }
+      
+      .header-logo-section .header-logo img {
+        transition: all 0.3s ease;
+      }
+      
+      /* Navigation menu in center */
+      .main-menu {
+        flex-grow: 1;
+        display: flex !important;
+        justify-content: center;
+        margin: 0 30px;
+        transition: all 0.3s ease;
+      }
+      
+      .main-menu > ul {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        list-style: none;
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
+        transition: all 0.3s ease;
+      }
+      
+      .main-menu > ul > li {
+        margin: 0 15px;
+      }
+      
+      /* User section on right */
+      .th-header.header-default .menu-area .header-button {
+        margin-left: 0;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      /* ENHANCED STICKY BEHAVIOR - Navigation adopts header-button styling */
+      .th-header.header-default .sticky-wrapper.sticky {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+        border-bottom: none !important;
+        margin-top: 0 !important;
+      }
+      
+      .th-header.header-default .sticky-wrapper.sticky .menu-area {
+        background: transparent !important;
+        padding: 10px 0;
+      }
+      
+      /* Enhanced sticky navigation container - includes logo and navigation */
+      .th-header.header-default .sticky-wrapper.sticky .menu-area-wrap {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 25px !important;
+        padding: 8px 20px !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        max-width: fit-content;
+        margin: 0 auto;
+        justify-content: center;
+        gap: 30px;
+      }
+      
+      /* Logo styling in sticky mode */
+      .th-header.header-default .sticky-wrapper.sticky .header-logo-section .header-logo img {
+        height: 32px !important;
+      }
+      
+      .th-header.header-default .sticky-wrapper.sticky .header-logo-section .header-logo .logo-text {
+        font-size: 18px !important;
+        color: var(--green-primary, #1A685B) !important;
+      }
+      
+      .th-header.header-default .sticky-wrapper.sticky .header-logo-section .header-logo .logo-text:hover {
+        color: var(--nav-accent, #ffc107) !important;
+      }
+      
+      /* Navigation menu styling in sticky mode */
+      .th-header.header-default .sticky-wrapper.sticky .main-menu {
+        margin: 0;
+      }
+      
+      .th-header.header-default .sticky-wrapper.sticky .main-menu > ul {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+      }
+      
+      /* Navigation text color in sticky mode - green theme */
+      .th-header.header-default .sticky-wrapper.sticky .main-menu > ul > li > a {
+        color: var(--green-primary, #1A685B) !important;
+        font-weight: 600 !important;
+      }
+      
+      .th-header.header-default .sticky-wrapper.sticky .main-menu > ul > li > a:hover,
+      .th-header.header-default .sticky-wrapper.sticky .main-menu > ul > li.current-menu-item > a {
+        color: var(--nav-accent, #ffc107) !important;
+      }
+      
+      /* Hide animated bar when sticky */
+      .th-header.header-default .sticky-wrapper.sticky ~ .animated-contact-bar {
+        display: none;
+      }
+      
+      /* Mobile sticky logo enhancement */
+      @media (max-width: 991px) {
+        .th-header.header-default .sticky-wrapper.sticky .header-logo-section .header-logo {
+          background: rgba(255, 255, 255, 0.95) !important;
+          backdrop-filter: blur(10px) !important;
+          border-radius: 50% !important;
+          padding: 8px !important;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+          width: 60px !important;
+          height: 60px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+        
+        .th-header.header-default .sticky-wrapper.sticky .header-logo-section .header-logo img {
+          height: 40px !important;
+          width: auto !important;
+        }
+      }
+      
+      /* Ensure body content starts right after the contact bar */
+      body {
+        padding-top: 35px !important; /* Height of contact bar */
+      }
+      
+      /* Remove extra spacing and ensure hero starts immediately */
+      .hero-wrapper,
+      .th-hero-wrapper,
+      .hero-1,
+      .hero-2,
+      .hero-3 {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+      }
+      
+      /* Hero content can start normally */
+      .hero-wrapper .hero-content,
+      .th-hero-wrapper .hero-content,
+      .hero-1 .hero-content,
+      .hero-2 .hero-content,
+      .hero-3 .hero-content {
+        padding-top: 0 !important;
+      }
+      
+      /* Mobile responsive adjustments */
+      @media (max-width: 991.98px) {
+        .animated-contact-bar {
+          height: 30px;
+        }
+        
+        .contact-scroll-item {
+          font-size: 12px;
+          margin-right: 40px;
+        }
+        
+        .th-header.header-default .menu-top,
+        .th-header.header-default .sticky-wrapper {
+          margin-top: 30px;
+        }
+        
+        .th-header.header-default .menu-area-wrap {
+          flex-direction: column;
+          gap: 15px;
+        }
+        
+        .main-menu {
+          margin: 0;
+          order: 2;
+        }
+        
+        .header-logo-section {
+          order: 1;
+        }
+        
+        .header-button {
+          order: 3;
+        }
+        
+        .th-header.header-default .sticky-wrapper.sticky {
+          margin-top: 0 !important;
+        }
+        
+        /* Adjust body padding for mobile */
+        body {
+          padding-top: 30px !important; /* Reduced height for mobile contact bar */
+        }
+      }
+      
+      /* New compact circular preloader design */
+      .preloader-logo {
+        max-width: 100px;
+        height: auto;
+        width: auto;
+        filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        display: block;
+        margin: 0 auto;
+        border-radius: 50%;
+        padding: 5px;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 15px rgba(26, 104, 91, 0.2);
+        animation: pulse-shadow 2s infinite ease-in-out;
+      }
+      
+      @keyframes pulse-shadow {
+        0%, 100% { box-shadow: 0 0 15px rgba(26, 104, 91, 0.2); }
+        50% { box-shadow: 0 0 25px rgba(255, 172, 0, 0.4); }
+      }
+      
+      .preloader-logo-wrap {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      /* New circular preloader design */
+      .preloader-spinner-container {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+      }
+      
+      .preloader-spinner-ring {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 3px solid rgba(26, 104, 91, 0.1);
+        border-top: 3px solid var(--theme-color, #1A685B);
+        border-right: 3px solid var(--theme-color2, #FFAC00);
+        border-radius: 50%;
+        animation: spin 1.5s linear infinite;
+      }
+      
+      .preloader-spinner-circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px;
+        height: 10px;
+        background-color: var(--theme-color2, #FFAC00);
+        border-radius: 50%;
+        animation: pulse 2s infinite ease-in-out;
+      }
+      
+      .preloader-tagline {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 20px;
+        color: var(--theme-color, #1A685B);
+        animation: fade 2s infinite ease-in-out;
+      }
+      
+      @keyframes fade {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      @keyframes pulse {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+        50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      }
+      
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      
+      .preloader-inner {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 200px;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 576px) {
+        .preloader-logo {
+          max-width: 80px;
+        }
+        
+        .preloader-spinner-container {
+          width: 60px;
+          height: 60px;
+        }
+        
+        .preloader-tagline {
+          font-size: 0.9rem;
+        }
+        
+        .preloader-inner {
+          width: 180px;
+          padding: 20px;
+        }
+      }
+      /* Logo styling with YCBN text */
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+      }
+      
+      .header-logo img {
+        height: 50px;
+        width: auto;
+        transition: all 0.3s ease;
+      }
+      
+      .header-logo .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: 'Nunito', sans-serif;
+        letter-spacing: 1px;
+      }
+      
+      .header-logo .logo-text:hover {
+        color: var(--nav-accent, #ffc107) !important;
+        text-decoration: none;
+      }
+      
+      .mobile-logo img,
+      .about-logo img {
+        max-height: 50px;
+        width: auto;
+      }
+      
+      /* Footer logo - slightly smaller than navigation logo */
+      .footer-logo {
+        height: 45px !important;
+        width: auto;
+        transition: all 0.3s ease;
+      }
+      
+      /* Mobile responsive logo adjustments */
+      @media (max-width: 991px) {
+        .header-logo img,
+        .mobile-logo img {
+          height: 40px;
+        }
+        
+        .header-logo .logo-text {
+          font-size: 18px;
+        }
+        
+        .footer-logo {
+          height: 35px !important;
+        }
+      }
+      .preloader-text {
+        color: white;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .preloader-text h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+      .preloader-text p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+      }
+      @media (max-width: 768px) {
+        .preloader-text h2 {
+          font-size: 1.8rem;
+        }
+        .preloader-text p {
+          font-size: 1rem;
+        }
+      }
+      
+      /* Custom Feature Cards Styling for Program Categories */
+      .feature-card.style4 {
+        background: #fff;
+        border-radius: 15px;
+        padding: 40px 25px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .feature-card.style4:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: all 0.6s ease;
+      }
+      
+      .feature-card.style4:hover:before {
+        left: 100%;
+      }
+      
+      .feature-card.style4:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(26, 104, 91, 0.15);
+      }
+      
+      .feature-card_icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 25px;
+        background: var(--theme-color, #1A685B);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s ease;
+        position: relative;
+      }
+      
+      .feature-card.style4:hover .feature-card_icon {
+        transform: scale(1.1);
+        background: var(--theme-color2, #FFAC00);
+      }
+      
+      .feature-card_icon img {
+        width: 40px;
+        height: 40px;
+        filter: brightness(0) invert(1);
+      }
+      
+      .feature-card_content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .feature-card_title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #1A685B;
+        transition: all 0.3s ease;
+      }
+      
+      .feature-card.style4:hover .feature-card_title {
+        color: #FFAC00;
+      }
+      
+      .feature-card_text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #666;
+        margin-bottom: 0;
+        flex-grow: 1;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .feature-card.style4 {
+          padding: 30px 20px;
+          min-height: 250px;
+        }
+        
+        .feature-card_icon {
+          width: 70px;
+          height: 70px;
+          margin-bottom: 20px;
+        }
+        
+        .feature-card_icon img {
+          width: 35px;
+          height: 35px;
+        }
+        
+        .feature-card_title {
+          font-size: 1.2rem;
+        }
+        
+        .feature-card_text {
+          font-size: 0.9rem;
+        }
+      }
+      
+      /* GLOBAL CENTERING RULES FOR CONSISTENT LAYOUT */
+      
+      /* Center most content sections */
+      .space .container,
+      .space-top .container,
+      .space-bottom .container {
+        max-width: 1200px;
+      }
+      
+      /* Center section titles and content */
+      .title-area {
+        text-align: center !important;
+        margin-bottom: 3rem;
+      }
+      
+      .title-area .sub-title {
+        display: block;
+        text-align: center;
+      }
+      
+      .title-area .sec-title {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      
+      .title-area .sec-text {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      
+      /* Center contact features */
+      .contact-feature {
+        text-align: center !important;
+        padding: 2rem 1rem;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+      }
+      
+      .contact-feature:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      
+      .contact-feature .box-icon {
+        margin: 0 auto 1rem !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      /* Center service cards */
+      .service-card,
+      .donation-card,
+      .program-card {
+        text-align: center;
+      }
+      
+      /* Center team/mentor cards */
+      .th-team .team-card-content,
+      .team-card2 .team-card-content {
+        text-align: center !important;
+      }
+      
+      /* Center blog cards */
+      .blog-card .blog-content {
+        text-align: center;
+      }
+      
+      /* Center testimonial content */
+      .testi-card4 {
+        text-align: center;
+      }
+      
+      /* Center counter/stats sections */
+      .counter-wrap {
+        justify-content: center !important;
+      }
+      
+      .counter-card {
+        text-align: center !important;
+      }
+      
+      /* Center footer content */
+      .footer-widget {
+        text-align: center;
+      }
+      
+      .footer-widget .widget_title {
+        text-align: center;
+      }
+      
+      .footer-widget .menu {
+        text-align: center;
+        list-style: none;
+        padding: 0;
+      }
+      
+      .footer-widget .th-social {
+        justify-content: center;
+      }
+      
+      /* Center breadcrumb */
+      .breadcumb-content {
+        text-align: center !important;
+      }
+      
+      .breadcumb-menu {
+        justify-content: center !important;
+      }
+      
+      /* Center form elements */
+      .contact-form .form-group {
+        text-align: left; /* Keep form inputs left-aligned for usability */
+      }
+      
+      /* Center buttons in forms and sections */
+      .btn-wrap,
+      .text-center .th-btn {
+        text-align: center;
+      }
+      
+      /* Mobile responsive adjustments for centering */
+      @media (max-width: 991px) {
+        .contact-feature {
+          margin-bottom: 2rem;
+        }
+        
+        .service-card,
+        .donation-card {
+          margin-bottom: 2rem;
+        }
+        
+        .title-area .sec-text {
+          max-width: 100%;
+          padding: 0 1rem;
+        }
+      }
+      
+      /* Ensure grid layouts center properly */
+      .row.justify-content-center {
+        text-align: center;
+      }
+      
+      .row.justify-content-center > [class*="col-"] {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      /* Exception for text content that should remain left-aligned */
+      .row.justify-content-center .sec-text,
+      .row.justify-content-center p {
+        text-align: center;
+      }
+      
+      /* Compact Contact Footer Section Styling */
+      .compact-contact {
+        max-width: 250px;
+        margin: 0 auto;
+      }
+      
+      .contact-info-compact {
+        margin-bottom: 1rem;
+      }
+      
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8rem;
+        text-align: left;
+      }
+      
+      .contact-icon {
+        width: 18px;
+        height: 18px;
+        color: var(--theme-color, #1A685B);
+        margin-right: 0.8rem;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      
+      .contact-details {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      
+      .contact-label {
+        font-size: 0.75rem;
+        color: #888;
+        margin-bottom: 0.1rem;
+        font-weight: 400;
+      }
+      
+      .contact-value {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+        text-decoration: none;
+        word-break: break-all;
+      }
+      
+      .contact-value:hover {
+        color: var(--theme-color, #1A685B);
+        text-decoration: none;
+      }
+      
+      .compact-contact .th-social {
+        justify-content: center;
+        margin-top: 1rem;
+      }
+      
+      .compact-contact .th-social a {
+        width: 32px;
+        height: 32px;
+        margin: 0 0.25rem;
+        font-size: 14px;
+      }
+      
+      /* Responsive adjustments for compact contact */
+      @media (max-width: 768px) {
+        .compact-contact {
+          max-width: 100%;
+        }
+        
+        .contact-item {
+          justify-content: center;
+          text-align: center;
+        }
+        
+        .contact-details {
+          align-items: center;
+        }
+        
+        .contact-value {
+          word-break: normal;
+        }
+      }
+      
+      /* Inline Contact Footer Section Styling */
+      .footer-contact-compact {
+        text-align: center;
+      }
+      
+      .contact-details-inline {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+      
+      .contact-item-inline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      
+      .contact-icon-inline {
+        color: var(--theme-color, #1A685B);
+        font-size: 16px;
+        width: 20px;
+        flex-shrink: 0;
+      }
+      
+      .contact-text-inline {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+      }
+      
+      .contact-label-inline {
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 0.1rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+      
+      .contact-link-inline {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #333;
+        text-decoration: none;
+        line-height: 1.2;
+      }
+      
+        .contact-link-inline:hover {
+        color: var(--theme-color, #1A685B);
+        text-decoration: none;
+      }
+      
+      /* Enhanced Footer Social Media Styling */
+      .footer-social-enhanced {
+        text-align: center;
+        margin-top: 1.5rem;
+        background: rgba(26, 104, 91, 0.05);
+        padding: 1.5rem;
+        border-radius: 15px;
+        border: 1px solid rgba(26, 104, 91, 0.1);
+      }
+      
+      .footer-social-enhanced .social-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--theme-color, #1A685B);
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .footer-social-enhanced .th-social.enhanced {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        justify-content: center;
+      }
+      
+      .footer-social-enhanced .social-link {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        text-decoration: none !important;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+        background: rgba(255, 255, 255, 0.8);
+      }
+      
+      .footer-social-enhanced .social-link i {
+        font-size: 1.2rem;
+        width: 25px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+      
+      .footer-social-enhanced .social-text {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+        transition: all 0.3s ease;
+      }
+      
+      /* Individual social platform colors and hover effects */
+      .footer-social-enhanced .social-link.facebook {
+        border-color: rgba(66, 103, 178, 0.2);
+      }
+      .footer-social-enhanced .social-link.facebook i {
+        color: #4267B2;
+      }
+      .footer-social-enhanced .social-link.facebook:hover {
+        background: #4267B2;
+        border-color: #4267B2;
+        transform: translateX(5px);
+      }
+      .footer-social-enhanced .social-link.facebook:hover i,
+      .footer-social-enhanced .social-link.facebook:hover .social-text {
+        color: white;
+      }
+      
+      .footer-social-enhanced .social-link.twitter {
+        border-color: rgba(29, 161, 242, 0.2);
+      }
+      .footer-social-enhanced .social-link.twitter i {
+        color: #1DA1F2;
+      }
+      .footer-social-enhanced .social-link.twitter:hover {
+        background: #1DA1F2;
+        border-color: #1DA1F2;
+        transform: translateX(5px);
+      }
+      .footer-social-enhanced .social-link.twitter:hover i,
+      .footer-social-enhanced .social-link.twitter:hover .social-text {
+        color: white;
+      }
+      
+      .footer-social-enhanced .social-link.youtube {
+        border-color: rgba(255, 0, 0, 0.2);
+      }
+      .footer-social-enhanced .social-link.youtube i {
+        color: #FF0000;
+      }
+      .footer-social-enhanced .social-link.youtube:hover {
+        background: #FF0000;
+        border-color: #FF0000;
+        transform: translateX(5px);
+      }
+      .footer-social-enhanced .social-link.youtube:hover i,
+      .footer-social-enhanced .social-link.youtube:hover .social-text {
+        color: white;
+      }
+      
+      .footer-social-enhanced .social-link.linkedin {
+        border-color: rgba(10, 102, 194, 0.2);
+      }
+      .footer-social-enhanced .social-link.linkedin i {
+        color: #0A66C2;
+      }
+      .footer-social-enhanced .social-link.linkedin:hover {
+        background: #0A66C2;
+        border-color: #0A66C2;
+        transform: translateX(5px);
+      }
+      .footer-social-enhanced .social-link.linkedin:hover i,
+      .footer-social-enhanced .social-link.linkedin:hover .social-text {
+        color: white;
+      }
+      
+      /* Mobile responsive for enhanced footer social */
+      @media (max-width: 576px) {
+        .footer-social-enhanced {
+          padding: 1rem;
+        }
+        
+        .footer-social-enhanced .social-title {
+          font-size: 1rem;
+          margin-bottom: 0.8rem;
+        }
+        
+        .footer-social-enhanced .th-social.enhanced {
+          gap: 0.6rem;
+        }
+        
+        .footer-social-enhanced .social-link {
+          padding: 0.6rem 0.8rem;
+          gap: 0.6rem;
+        }
+        
+        .footer-social-enhanced .social-link i {
+          font-size: 1.1rem;
+          width: 20px;
+        }
+        
+        .footer-social-enhanced .social-text {
+          font-size: 0.85rem;
+        }
+      }
+      
+      /* Mobile responsive for inline contact */
+      @media (max-width: 576px) {
+        .contact-details-inline {
+          gap: 0.5rem;
+        }
+        
+        .contact-item-inline {
+          flex-direction: column;
+          gap: 0.25rem;
+          text-align: center;
+        }
+        
+        .contact-text-inline {
+          align-items: center;
+          text-align: center;
+        }
+        
+        .contact-link-inline {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <!--==============================
+     Preloader
+  ==============================-->
+    <div id="preloader" class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo-wrap">
+                <img src="{% static 'assets/img/ycbn-logo.jpg' %}" alt="YCBN Logo" class="preloader-logo creative-logo-anim">
+            </div>
+            <div class="preloader-spinner-container">
+                <div class="preloader-spinner-ring"></div>
+                <div class="preloader-spinner-circle"></div>
+            </div>
+            <div class="preloader-tagline">Empowering Uganda's Youth</div>
+        </div>
+    </div>
+    <script>
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            var preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                setTimeout(function() { preloader.style.display = 'none'; }, 500);
+            }
+        }, 900);
+    });
+    </script>
+
+    <!--==============================
+    Sidemenu
+    ============================== -->
+    <div class="sidemenu-wrapper sidemenu-cart ">
+        <div class="sidemenu-content">
+            <button class="closeButton sideMenuCls"><i class="far fa-times"></i></button>
+           
+        </div>
+    </div>
+
+    <div class="popup-search-box d-none d-lg-block">
+        <button class="searchClose"><i class="far fa-times"></i></button>
+        <form action="#">
+            <input type="text" placeholder="What are you looking for?">
+            <button type="submit"><i class="fal fa-search"></i></button>
+        </form>
+    </div>
+
+    <!--==============================
+    Mobile Menu
+  ============================== -->
+    <div class="th-menu-wrapper">
+        <div class="th-menu-area text-center">
+            <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
+            <div class="mobile-logo">
+                <a href="{% url 'charity:home' %}"><img src="{% static 'assets/img/ycbn-logo.jpg' %}" alt="YCBN Charity"></a>
+            </div>
+            <div class="th-mobile-menu">
+                {% include 'charity/includes/mobile_menu.html' %}
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Flash messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!--==============================
+    Animated Contact Bar - At the very top
+    ==============================-->
+    <div class="animated-contact-bar">
+        <div class="contact-scroll-container">
+            <div class="contact-scroll-item">
+                <i class="fal fa-map-marker-alt"></i>
+                <span>Locate Address: <a href="https://www.google.com/maps">Wakiso, Uganda</a></span>
+            </div>
+            <div class="contact-scroll-item">
+                <i class="fal fa-phone"></i>
+                <span>Call us any time: <a href="tel:+256772573781">+256772573781</a></span>
+            </div>
+            <div class="contact-scroll-item">
+                <i class="fal fa-envelope-open"></i>
+                <span>Email us any time: <a href="mailto:info@ycbf.org">info@ycbf.org</a></span>
+            </div>
+            <div class="contact-scroll-item">
+                <i class="fal fa-map-marker-alt"></i>
+                <span>Locate Address: <a href="https://www.google.com/maps">Wakiso, Uganda</a></span>
+            </div>
+            <div class="contact-scroll-item">
+                <i class="fal fa-phone"></i>
+                <span>Call us any time: <a href="tel:+256772573781">+256772573781</a></span>
+            </div>
+            <div class="contact-scroll-item">
+                <i class="fal fa-envelope-open"></i>
+                <span>Email us any time: <a href="mailto:info@ycbf.org">info@ycbf.org</a></span>
+            </div>
+        </div>
+    </div>
+
+    <!--==============================
+    Header Area - Restructured Layout
+    ==============================-->
+    <header class="th-header header-default">
+        <div class="menu-top">
+            <div class="container">
+                <div class="row justify-content-center justify-content-lg-between align-items-center gy-2">
+                    <div class="col-auto d-none d-lg-block">
+                        <div class="header-logo">
+                            <a href="{% url 'charity:home' %}"><img src="{% static 'assets/img/ycbn-logo.jpg' %}" alt="YCBN Charity"></a>
+                        </div>
+                    </div>
+                    <div class="col-auto d-none d-md-block">
+                        <div class="info-card-wrap">
+                            <div class="info-card">
+                                <div class="box-icon">
+                                    <i class="fal fa-map-marker-alt"></i>
+                                    <div class="bg-shape1" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                    <div class="bg-shape2" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">Locate Address:</p>
+                                    <h4 class="box-title"><a href="https://www.google.com/maps">Wakiso, Uganda</a></h4>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <div class="box-icon">
+                                    <i class="fal fa-phone"></i>
+                                    <div class="bg-shape1" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                    <div class="bg-shape2" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">Call us any time:</p>
+                                    <h4 class="box-title"><a href="tel:+1234567890">+256772573781</a></h4>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <div class="box-icon">
+                                    <i class="fal fa-envelope-open"></i>
+                                    <div class="bg-shape1" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                    <div class="bg-shape2" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">Email us any time:</p>
+                                    <h4 class="box-title"><a href="mailto:info@ycbf.org">info@ycbf.org</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sticky-wrapper">
+            <!-- Restructured Main Menu Area - Logo, Navigation, and User section on same line -->
+            <div class="container">
+                <div class="menu-area">
+                    <div class="menu-area-wrap">
+                        <!-- Logo Section - Left Side -->
+                        <div class="header-logo-section">
+                            <div class="header-logo">
+                                <img src="{% static 'assets/img/ycbn-logo.jpg' %}" alt="YCBN Charity">
+                                <a href="{% url 'charity:home' %}" class="logo-text">YCBN</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation Menu - Center -->
+                        <nav class="main-menu d-none d-lg-flex">
+                            {% with url_name=request.resolver_match.url_name %}
+                            <ul>
+                                <li class="{% if url_name == 'home' %}current-menu-item{% endif %}"><a href="{% url 'charity:home' %}">Home</a></li>
+                                <li class="menu-item-has-children {% if url_name == 'about' or url_name == 'programs' or url_name == 'projects' or url_name == 'clubs' or url_name == 'partner_schools' or url_name == 'donations' or url_name == 'donate_now' %}current-menu-item{% endif %}">
+                                    <a href="{% url 'charity:about' %}">About Us</a>
+                                    <ul class="sub-menu">
+                                        <li class="{% if url_name == 'programs' %}current-menu-item{% endif %}"><a href="{% url 'charity:programs' %}">Programs</a></li>
+                                        <li class="{% if url_name == 'projects' %}current-menu-item{% endif %}"><a href="{% url 'charity:projects' %}">Projects</a></li>
+                                        <li class="{% if url_name == 'clubs' %}current-menu-item{% endif %}"><a href="{% url 'charity:clubs' %}">Clubs</a></li>
+                                        <li class="{% if url_name == 'partner_schools' %}current-menu-item{% endif %}"><a href="{% url 'charity:partner_schools' %}">Partner Schools</a></li>
+                                        <li class="{% if url_name == 'donations' %}current-menu-item{% endif %}"><a href="{% url 'charity:donations' %}">Donations</a></li>
+                                        <li class="{% if url_name == 'donate_now' %}current-menu-item{% endif %}"><a href="{% url 'charity:donate_now' %}">Donate Now</a></li>
+                                    </ul>
+                                </li>
+                                <li class="{% if url_name == 'impact' %}current-menu-item{% endif %}"><a href="{% url 'charity:impact' %}">Our Impact</a></li>
+                                <li class="{% if url_name == 'articles' or url_name == 'article_details' or url_name == 'add_article' or url_name == 'edit_article' %}current-menu-item{% endif %}"><a href="{% url 'charity:articles' %}">Articles</a></li>
+                                <li class="{% if url_name == 'spotlight' %}current-menu-item{% endif %}"><a href="{% url 'charity:spotlight' %}">Spotlight</a></li>
+                                <li class="{% if url_name == 'blog' %}current-menu-item{% endif %}"><a href="{% url 'charity:blog' %}">Blog</a></li>
+                                <li class="{% if url_name == 'contact' %}current-menu-item{% endif %}"><a href="{% url 'charity:contact' %}">Contact Us</a></li>
+                            </ul>
+                            {% endwith %}
+                        </nav>
+                        
+                        <!-- User Actions - Right Side -->
+                        <div class="header-button">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'charity:profile' %}" class="th-btn d-lg-inline-block d-none" style="background:#1A685B;"><i class="fas fa-user me-2"></i>{{ user.get_short_name|default:user.username }}</a>
+                            {% else %}
+                            <a href="{% url 'login' %}" class="th-btn d-lg-inline-block d-none" style="background:#1A685B;"><i class="fas fa-user-plus me-2"></i>Join Us</a>
+                            {% endif %}
+                            <button type="button" class="icon-btn th-menu-toggle d-lg-none"><i class="far fa-bars"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    {% block content %}
+    {% endblock %}
+
+    <!--==============================
+    Footer Area
+    ==============================-->
+    <footer class="footer-wrapper footer-default" data-bg-src="{% static 'assets/img/bg/footer-default-bg-mask.png' %}">
+        <div class="footer-bg-shape2 shape-mockup jump" data-top="20%" data-right="0">
+            <img src="{% static 'assets/img/shape/footer-bg-shape3.png' %}" alt="img">
+        </div>
+        <div class="footer-bg-shape3 shape-mockup d-none" data-bottom="0" data-right="0">
+            <img src="{% static 'assets/img/shape/footer-bg-shape2.png' %}" alt="img">
+        </div>
+        <div class="footer-top">
+            <div class="container">
+                <div class="subscribe-box">
+                    <div class="row gy-40 align-items-center justify-content-center">
+                        <div class="col-xl-6">
+                            <h4 class="subscribe-box_title">Subscribe to Our Newsletter</h4>
+                            <p class="subscribe-box_text">Regular inspections and feedback mechanisms</p>
+                        </div>
+                        <div class="col-xl-6 col-lg-8">
+                            <form class="newsletter-form">
+                                <div class="form-group">
+                                    <input class="form-control" type="email" placeholder="Enter Email Address" required="">
+                                </div>
+                                <button type="submit" class="th-btn style3"><i class="fas fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget-area">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-md-6 col-xl-auto">
+                        <div class="widget footer-widget">
+                            <div class="th-widget-about">
+                                <div class="about-logo">
+                                    <a href="{% url 'charity:home' %}"><img src="{% static 'assets/img/ycbn-logo.jpg' %}" alt="YCBF Uganda" class="footer-logo"></a>
+                                </div>
+                                <p class="about-text">Empowering Uganda's youth through skill development, mentorship, and community engagement. Building a brighter future for young people across schools and local communities.</p>
+                                <a href="{% url 'charity:donate_now' %}" class="th-btn"><i class="fas fa-heart me-2"></i> Support Our Mission</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-auto">
+                        <div class="widget widget_nav_menu footer-widget">
+                            <h3 class="widget_title">Quick Links</h3>
+                            <div class="menu-all-pages-container">
+                                <ul class="menu">
+                                    <li><a href="{% url 'charity:about' %}">About YCBF</a></li>
+                                    <li><a href="{% url 'charity:blog' %}">News & Updates</a></li>
+                                    <li><a href="{% url 'charity:programs' %}">Our Programs</a></li>
+                                    <li><a href="{% url 'charity:clubs' %}">Youth Clubs</a></li>
+                                    <li><a href="{% url 'charity:contact' %}">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-auto">
+                        <div class="widget widget_nav_menu footer-widget">
+                            <h3 class="widget_title">Our Service</h3>
+                            <div class="menu-all-pages-container">
+                                <ul class="menu">
+                                    <li><a href="{% url 'charity:donate_now' %}">Make a Donation</a></li>
+                                    <li><a href="{% url 'charity:programs' %}">Skills Development</a></li>
+                                    <li><a href="{% url 'charity:clubs' %}">Youth Clubs</a></li>
+                                    <li><a href="{% url 'charity:projects' %}">Community Projects</a></li>
+                                    <li><a href="{% url 'charity:spotlight' %}">Our Impact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-auto">
+                        <div class="widget footer-widget">
+                            <div class="th-widget-contact footer-contact-compact">
+                                <h3 class="widget_title">Contact Us</h3>
+                                <div class="contact-details-inline">
+                                    <div class="contact-item-inline">
+                                        <i class="fal fa-phone contact-icon-inline"></i>
+                                        <div class="contact-text-inline">
+                                            <span class="contact-label-inline">Call us:</span>
+                                            <a href="tel:+256772573781" class="contact-link-inline">+256 772 573 781</a>
+                                        </div>
+                                    </div>
+                                    <div class="contact-item-inline">
+                                        <i class="fal fa-envelope contact-icon-inline"></i>
+                                        <div class="contact-text-inline">
+                                            <span class="contact-label-inline">Email us:</span>
+                                            <a href="mailto:info@ycbf.org" class="contact-link-inline">info@ycbf.org</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer-social-enhanced mt-4">
+                                    <h4 class="social-title">Follow Us</h4>
+                                    <div class="th-social style2 enhanced">
+                                        <a href="https://www.facebook.com/" class="social-link facebook" title="Follow us on Facebook">
+                                            <i class="fab fa-facebook-f"></i>
+                                            <span class="social-text">Facebook</span>
+                                        </a>
+                                        <a href="https://www.twitter.com/" class="social-link twitter" title="Follow us on Twitter">
+                                            <i class="fab fa-twitter"></i>
+                                            <span class="social-text">Twitter</span>
+                                        </a>
+                                        <a href="https://www.youtube.com/" class="social-link youtube" title="Subscribe to our YouTube">
+                                            <i class="fab fa-youtube"></i>
+                                            <span class="social-text">YouTube</span>
+                                        </a>
+                                        <a href="https://www.linkedin.com/" class="social-link linkedin" title="Connect on LinkedIn">
+                                            <i class="fab fa-linkedin-in"></i>
+                                            <span class="social-text">LinkedIn</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-wrap">
+            <div class="container">
+                <div class="row justify-content-center gy-3 align-items-center">
+                    <div class="col-lg-12">
+                        <p class="copyright-text text-center">
+                            <i class="fal fa-copyright"></i> Copyright {% now "Y" %} <a href="{% url 'charity:home' %}">YCBF Uganda</a>. All Rights Reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll To Top -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+        </svg>
+    </div>
+
+    <!--==============================
+    All Js File
+    ============================== -->
+    <!-- Jquery -->
+    <script src="{% static 'assets/js/vendor/jquery-3.7.1.min.js' %}"></script>
+    <!-- Swiper Js -->
+    <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Magnific Popup -->
+    <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Counter Up -->
+    <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+    <!-- Range Slider -->
+    <script src="{% static 'assets/js/jquery-ui.min.js' %}"></script>
+    <!-- Isotope Filter -->
+    <script src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/isotope.pkgd.min.js' %}"></script>
+
+    <!-- Main Js File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

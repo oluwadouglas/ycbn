@@ -1,0 +1,1059 @@
+{% extends 'charity/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/impact-styles.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/spotlight-styles.css' %}">
+<style>
+  /* Project grid and cards (from projects.html) */
+  .project-card { border: 0; border-radius: 14px; overflow: hidden; background: #fff; transition: transform .2s ease, box-shadow .2s ease; }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,.08); }
+  .project-thumb { position: relative; aspect-ratio: 16/9; background: #f3f6f5; }
+  .project-thumb img { width:100%; height:100%; object-fit: cover; display:block; }
+  .project-badge { position: absolute; top: 12px; left: 12px; background: #1A685B; color: #fff; border-radius: 999px; padding: 6px 12px; font-size: .78rem; font-weight: 600; box-shadow: 0 6px 18px rgba(26,104,91,.28); }
+  .project-body { padding: 16px 16px 18px; }
+  .project-title { font-size: 1.05rem; margin: 0 0 6px; color: #122; font-weight: 700; }
+  .project-desc { color: #556; font-size: .92rem; margin-bottom: 12px; }
+  .project-meta { display:flex; justify-content: space-between; align-items: center; }
+  .project-link { color: #1A685B; text-decoration: none; font-weight: 600; }
+  .project-link:hover { text-decoration: underline; }
+
+  /* Compact spacing utility for stacked homepage sections */
+  .section-compact { padding-top: 3rem; padding-bottom: 3rem; }
+
+  /* Programs styles (from programs.html) */
+  .program-card img{aspect-ratio:16/10;object-fit:cover}
+  .program-card .card-title{font-weight:700}
+  .program-card .card-text{min-height:3.6em}
+  .category-head{display:flex;align-items:end;gap:.75rem}
+  .category-count{font-size:.9rem;color:#6c757d}
+  .program-badge{position:absolute;top:.5rem;left:.5rem}
+  .card-footer{background:transparent}
+  @media (prefers-color-scheme: dark){.category-count{color:#adb5bd}}
+  .programs-hero{background:linear-gradient(135deg,#f8fafc,#eef2ff);border-radius:12px}
+  .programs-hero .lead{color:#475569}
+  @media (prefers-color-scheme: dark){.programs-hero{background:linear-gradient(135deg,#0b1220,#131c2b)}.programs-hero .lead{color:#cbd5e1}}
+  .btn-soft{background:#f1f5f9;color:#0f172a}
+  .btn-soft:hover{background:#e2e8f0}
+  @media (prefers-color-scheme: dark){.btn-soft{background:#0f172a;color:#e2e8f0}.btn-soft:hover{background:#111827}}
+
+  /* Donation card aspect ratio (from donation.html) */
+  .donation-card .box-thumb { aspect-ratio: 16/9; overflow: hidden; border-radius: 10px; background: #f5f5f5; }
+  .donation-card .box-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* Vision/Mission/Core Values: compact spacing + strong flair */
+  #about-vmc-home { padding-top: 8px !important; padding-bottom: 24px; background: linear-gradient(135deg, #ecfdf5 0%, #e6fffa 100%); border-radius: 16px; position: relative; }
+  #about-vmc-home .sub-title { color:#1A685B; font-weight:800; text-transform: uppercase; letter-spacing:.6px; }
+  #about-vmc-home .sec-title { color: #ffffff; letter-spacing: -.2px; margin-bottom: .5rem; }
+  #about-vmc-home .lead { color: #334155; }
+  #about-vmc-home .feature-card { background:#ffffff; border: 1px solid rgba(26,104,91,.14); border-radius: 14px; transition: transform .25s ease, box-shadow .25s ease; }
+  #about-vmc-home .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 36px rgba(16,24,40,.14); }
+  #about-vmc-home .box-icon span { background: linear-gradient(135deg,#1A685B,#22a391); box-shadow: 0 10px 24px rgba(26,104,91,.28); }
+  #about-vmc-home .core-value-card { display:flex; align-items:center; gap:.5rem; padding:.5rem .75rem; background:#fff; border:1px solid rgba(2,6,23,.06); border-radius: 999px; box-shadow: 0 8px 16px rgba(2,6,23,.05); }
+  #about-vmc-home .core-value-icon { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; box-shadow: inset 0 0 0 2px rgba(255,255,255,.45); }
+  #about-vmc-home .core-value-title { font-weight: 800; color:#0b1324; font-size:.92rem; }
+  /* Title accent + icon pulse */
+  @keyframes pulse-soft { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+  #about-vmc-home .box-icon span { animation: pulse-soft 3s ease-in-out infinite; }
+  #about-vmc-home .title-accent { width: 100px; height: 4px; border-radius: 4px; margin: .25rem auto 0; background: linear-gradient(90deg,#1A685B,rgba(26,104,91,.55)); box-shadow: 0 4px 14px rgba(26,104,91,.28); }
+  @media (prefers-color-scheme: dark) {
+    #about-vmc-home { background: linear-gradient(135deg, #0b1220 0%, #131c2b 100%); }
+    #about-vmc-home .lead { color:#cbd5e1; }
+    #about-vmc-home .feature-card { background:#0f172a; border-color: rgba(148,163,184,.18); }
+    #about-vmc-home .core-value-card { background:#0f172a; border-color: rgba(148,163,184,.12); }
+    #about-vmc-home .core-value-title { color:#e2e8f0; }
+  }
+ </style>
+{% endblock %}
+
+{% block title %}YCBF Uganda | Empowering Youth for Tomorrow{% endblock %}
+
+{% block content %}
+<!--==============================
+Hero Area
+==============================-->
+<div class="th-hero-wrapper hero-2" id="hero" data-bg-src="{% static 'assets/img/hero/hero_bg_2_1.png' %}" data-overlay="gray" style="margin-bottom:0;">
+    <div class="container">
+        <div class="row gx-40 align-items-center flex-row-reverse">
+            <div class="col-lg-6">
+                <div class="hero-2-img">
+                    <img src="{% static 'assets/img/hero/hero_thumb_1_1.jpg' %}" alt="Image">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <span class="sub-title after-none before-none"><i class="far fa-heart text-theme"></i> YCBN</span>
+                    <h1 class="display-4 mb-3">Youth Capacity Building Network - Stand Up. Skill Up. Step Out.</h1>
+                    <p class="lead mb-4">Empowering young people through skill development, mentorship, and community engagement.</p>
+                    <a href="{% url 'charity:about' %}" class="th-btn">Learn More<i class="fas fa-arrow-up-right ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Vision, Mission, Core Values (now directly under hero, no extra gap) -->
+<section class="space section-compact" id="about-vmc-home" style="margin-top:0; padding-top:8px; padding-bottom:24px;">
+  <div class="container position-relative" style="z-index:2;">
+    <div class="row justify-content-center mb-2">
+      <div class="col-lg-10 text-center">
+        <span class="sub-title after-none before-none"><i class="far fa-heart text-theme"></i> Empowering Uganda’s Youth</span>
+        <h2 class="sec-title mb-3">Empowering Uganda’s Youth with Skills, Knowledge &amp; Hope for Tomorrow</h2>
+        <div class="title-accent"></div>
+        <p class="lead mb-0">Building a brighter future for young people in schools and local communities.</p>
+      </div>
+    </div>
+    <div class="row gy-3 mb-2 justify-content-center">
+      <div class="col-md-4">
+        <div class="feature-card h-100 text-center shadow-sm bg-white">
+          <div class="box-icon mb-3">
+            <span class="d-inline-block rounded-circle bg-theme text-white" style="padding:18px;">
+              <i class="fas fa-eye fa-2x"></i>
+            </span>
+          </div>
+          <h5 class="box-title">Our Vision</h5>
+          <p class="box-text">To nurture an informed, skilled, and healthy youth population in Uganda, capable of driving sustainable development and positive societal change.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card h-100 text-center shadow-sm bg-white">
+          <div class="box-icon mb-3">
+            <span class="d-inline-block rounded-circle bg-theme text-white" style="padding:18px;">
+              <i class="fas fa-bullseye fa-2x"></i>
+            </span>
+          </div>
+          <h5 class="box-title">Our Mission</h5>
+          <p class="box-text">To equip young people in schools and communities with essential tools for a purposeful life through holistic knowledge, capacity building, health awareness, and guidance programs.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card h-100 text-center shadow-sm bg-white">
+          <div class="box-icon mb-3">
+            <span class="d-inline-block rounded-circle bg-theme text-white" style="padding:18px;">
+              <i class="fas fa-gem fa-2x"></i>
+            </span>
+          </div>
+          <h5 class="box-title mb-3">Our Core Values</h5>
+          <div class="row g-2 justify-content-center">
+            <div class="col-6"><div class="core-value-card"><span class="core-value-icon bg-success text-white"><i class="fas fa-hands-helping"></i></span><div class="core-value-title">Empathy</div></div></div>
+            <div class="col-6"><div class="core-value-card"><span class="core-value-icon bg-primary text-white"><i class="fas fa-shield-alt"></i></span><div class="core-value-title">Integrity</div></div></div>
+            <div class="col-6"><div class="core-value-card"><span class="core-value-icon bg-warning text-white"><i class="fas fa-users"></i></span><div class="core-value-title">Community</div></div></div>
+            <div class="col-6"><div class="core-value-card"><span class="core-value-icon bg-danger text-white"><i class="fas fa-star"></i></span><div class="core-value-title">Excellence</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- YCBF Uganda Services Section with Rich Styling (no top gap) -->
+<section class="space-bottom overflow-hidden section-compact" id="service-sec" style="margin-top:0; padding-top:0;">
+    <div class="service-wrap1 space th-radius overflow-hidden" data-bg-src="{% static 'assets/img/bg/gray-bg2.png' %}" data-overlay="gray" data-opacity="5">
+        <div class="shape-mockup service-bg-shape1-5 d-xxl-inline-block d-none z-index-3 spin" data-top="15%" data-left="18%">
+            <div class="color-masking">
+                <div class="masking-src" data-mask-src="{% static 'assets/img/shape/service_shape2_1.png' %}"></div>
+                <img src="{% static 'assets/img/shape/service_shape2_1.png' %}" alt="img">
+            </div>
+        </div>
+        <div class="shape-mockup service-bg-shape1-6 d-xxl-inline-block d-none z-index-3 jump" data-bottom="28%" data-right="5%">
+            <div class="color-masking2">
+                <div class="masking-src" data-mask-src="{% static 'assets/img/shape/service_shape2_2.png' %}"></div>
+                <img src="{% static 'assets/img/shape/service_shape2_2.png' %}" alt="img">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="title-area text-center">
+                        <span class="sub-title after-none before-none">YCBN Programs</span>
+                        <h2 class="sec-title">Transforming Lives Through Skill Development &amp; Mentorship</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row gy-30 gx-30 justify-content-center">
+                <div class="col-xl-4 col-md-6">
+                    <div class="service-card style2">
+                        <div class="box-thumb">
+                            <img src="{% static 'assets/img/service/service_card_1_1.png' %}" alt="img">
+                        </div>
+                        <div class="box-icon">
+                            <img src="{% static 'assets/img/icon/service-icon/service-card-icon1-1.svg' %}" alt="Icon">
+                        </div>
+                        <div class="box-content">
+                            <h3 class="box-title">Leadership &amp; Life Skills</h3>
+                            <p class="box-text">Workshops and mentorship to build confidence, communication, and leadership in Uganda’s youth.</p>
+                            <a href="{% url 'charity:about' %}" class="th-btn">Learn More<i class="fas fa-arrow-up-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="service-card style2">
+                        <div class="box-thumb">
+                            <img src="{% static 'assets/img/service/service_card_1_2.png' %}" alt="img">
+                        </div>
+                        <div class="box-icon">
+                            <img src="{% static 'assets/img/icon/service-icon/service-card-icon1-2.svg' %}" alt="Icon">
+                        </div>
+                        <div class="box-content">
+                            <h3 class="box-title">Entrepreneurship &amp; Innovation</h3>
+                            <p class="box-text">Equipping young people with entrepreneurial skills and creative thinking for a brighter future.</p>
+                            <a href="{% url 'charity:about' %}" class="th-btn">Learn More<i class="fas fa-arrow-up-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="service-card style2">
+                        <div class="box-thumb">
+                            <img src="{% static 'assets/img/service/service_card_1_3.png' %}" alt="img">
+                        </div>
+                        <div class="box-icon">
+                            <img src="{% static 'assets/img/icon/service-icon/service-card-icon1-3.svg' %}" alt="Icon">
+                        </div>
+                        <div class="box-content">
+                            <h3 class="box-title">Digital Literacy &amp; IT Skills</h3>
+                            <p class="box-text">Training in digital skills and technology to prepare youth for the modern workforce.</p>
+                            <a href="{% url 'charity:about' %}" class="th-btn">Learn More<i class="fas fa-arrow-up-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Team/Volunteers Swiper Slider -->
+<section class="space section-compact team-area-2">
+    <div class="shape-mockup team-bg-shape2-1 spin d-xxl-block d-none" data-top="20%" data-right="3%"><img src="{% static 'assets/img/shape/hand-group-shape1.png' %}" alt="img"></div>
+    <div class="container">
+        <div class="title-area text-center">
+            <span class="sub-title after-none before-none">Our Youth Leaders</span>
+            <h2 class="sec-title">Meet the YCBN Changemakers</h2>
+        </div>
+        <div class="slider-area">
+            <div class="swiper th-slider has-shadow team-slider2" id="teamSlider2" data-slider-options='{"spaceBetween": "30","breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"3"}}}'>
+                <div class="swiper-wrapper">
+                    {% for leader in youth_leaders %}
+                    <div class="swiper-slide">
+                        <div class="th-team team-card2">
+                            <div class="img-wrap">
+                                <div class="team-img">
+                                    {% if leader.image %}
+                                    <img src="{{ leader.image.url }}" alt="{{ leader.name }}">
+                                    {% endif %}
+                                </div>
+                                <div class="team-social-hover">
+                                    <a href="#" class="team-social-hover_btn">
+                                        <i class="far fa-plus"></i>
+                                    </a>
+                                    <div class="th-social">
+                                        {% for link in leader.social_links %}
+                                        <a target="_blank" href="{{ link.url }}"><i class="fab fa-{{ link.icon }}"></i></a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-card-content">
+                                <h3 class="box-title">{{ leader.name }}</h3>
+                                <span class="team-desig">{{ leader.title }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button data-slider-prev="#teamSlider2" class="slider-arrow slider-prev"><i class="far fa-arrow-left"></i></button>
+            <button data-slider-next="#teamSlider2" class="slider-arrow slider-next"><i class="far fa-arrow-right"></i></button>
+        </div>
+    </div>
+</section>
+<!-- Mentors Section -->
+<section class="space section-compact" id="mentor-sec" data-bg-src="{% static 'assets/img/bg/gray-bg2.png' %}">
+        <div class="shape-mockup team-bg-shape3-1 d-xxl-block d-none" data-top="0%" data-left="0%" data-bottom="0"><img src="{% static 'assets/img/shape/team_bg_shape3_1.png' %}" alt="img"></div>
+        <div class="shape-mockup team-bg-shape3-2 d-xxl-block d-none" data-top="0%" data-right="0%" data-bottom="0"><img src="{% static 'assets/img/shape/team_bg_shape3_2.png' %}" alt="img"></div>
+        <div class="shape-mockup team-bg-shape3-3 spin d-xxl-block d-none" data-top="15%" data-left="20%">
+            <div class="color-masking2">
+                <div class="masking-src" data-mask-src="{% static 'assets/img/shape/team_bg_shape3_3.png' %}"></div>
+                <img src="{% static 'assets/img/shape/team_bg_shape3_3.png' %}" alt="img">
+            </div>
+        </div>
+        <div class="shape-mockup team-bg-shape3-4 jump d-xxl-block d-none" data-top="18%" data-right="10%">
+            <img src="{% static 'assets/img/shape/team_bg_shape3_4.png' %}" alt="img">
+        </div>
+        <div class="shape-mockup team-bg-shape3-5 spin d-xxl-block d-none" data-bottom="18%" data-left="10%">
+            <img src="{% static 'assets/img/shape/team_bg_shape3_5.png' %}" alt="img">
+        </div>
+        <div class="shape-mockup team-bg-shape3-6 spin d-xxl-block d-none" data-bottom="10%" data-right="10%">
+            <div class="color-masking">
+                <div class="masking-src" data-mask-src="{% static 'assets/img/shape/team_bg_shape3_6.png' %}"></div>
+                <img src="{% static 'assets/img/shape/team_bg_shape3_6.png' %}" alt="img">
+            </div>
+        </div>
+        <div class="container">
+            <div class="title-area text-center">
+                <span class="sub-title after-none before-none"><i class="far fa-heart text-theme"></i> Our Mentors</span>
+                <h2 class="sec-title">Meet Our Inspiring Mentors</h2>
+            </div>
+            <div class="slider-area">
+                <div class="swiper th-slider has-shadow" id="mentorSlider" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
+                    <div class="swiper-wrapper">
+                        {% for mentor in mentors %}
+                        <div class="swiper-slide">
+                            <div class="th-team team-card3">
+                                <div class="team-img">
+                                    {% if mentor.image %}
+                                    <img src="{{ mentor.image.url }}" alt="{{ mentor.title }}">
+                                    {% else %}
+                                    <img src="{% static 'assets/img/team/default-mentor.jpg' %}" alt="{{ mentor.title }}">
+                                    {% endif %}
+                                </div>
+                                <div class="team-card-content">
+                                    <h3 class="box-title">{{ mentor.title }}</h3>
+                                    <span class="team-desig">Mentor</span>
+                                    <div class="th-social style2">
+                                        {% if mentor.social_links %}
+                                            {% if mentor.social_links.facebook %}
+                                            <a target="_blank" href="{{ mentor.social_links.facebook }}"><i class="fab fa-facebook-f"></i></a>
+                                            {% endif %}
+                                            {% if mentor.social_links.twitter %}
+                                            <a target="_blank" href="{{ mentor.social_links.twitter }}"><i class="fab fa-twitter"></i></a>
+                                            {% endif %}
+                                            {% if mentor.social_links.instagram %}
+                                            <a target="_blank" href="{{ mentor.social_links.instagram }}"><i class="fab fa-instagram"></i></a>
+                                            {% endif %}
+                                            {% if mentor.social_links.linkedin %}
+                                            <a target="_blank" href="{{ mentor.social_links.linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+                                            {% endif %}
+                                            {% if mentor.social_links.whatsapp %}
+                                            <a target="_blank" href="{{ mentor.social_links.whatsapp }}"><i class="fab fa-whatsapp"></i></a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="swiper-slide">
+                            <div class="text-center">
+                                <p class="text-muted">No mentors available at the moment. Check back soon!</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Exact Projects Listing (replacing slider with replica from projects.html) -->
+<section class="py-5 section-compact">
+  <div class="container">
+    <h2 class="mb-4 text-center">Our Projects</h2>
+    <div class="row g-4">
+      {% for project in projects %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card project-card h-100">
+          <a href="{% url 'charity:project_detail' project.id %}" class="project-thumb">
+            {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            {% endif %}
+            <span class="project-badge">
+              <i class="fas fa-users me-1"></i>{{ project.memberships.count }} members
+            </span>
+          </a>
+          <div class="project-body">
+            <h5 class="project-title">{{ project.title }}</h5>
+            <p class="project-desc mb-0">{{ project.description|truncatewords:22 }}</p>
+            <div class="project-meta mt-3">
+              <span class="text-muted small">{% if project.category %}<i class="fas fa-folder me-1"></i>{{ project.category.name }}{% endif %}</span>
+              <a class="project-link" href="{% url 'charity:project_detail' project.id %}">View details <i class="fas fa-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <p class="text-center">No projects available at the moment.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Impact Statistics Section -->
+<section class="space section-compact" id="impact-stats">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10 col-md-12">
+                <div class="title-area text-center">
+                    <span class="sub-title"><i class="fas fa-chart-line me-2"></i>Our Numbers</span>
+                    <h2 class="sec-title">Impact by the Numbers</h2>
+                    <p class="sec-text">Every number represents lives touched, communities strengthened, and hope restored.</p>
+                </div>
+            </div>
+        </div>
+        {% if impact_counter %}
+        <div class="row gy-4 justify-content-center" id="impact-counters">
+            {% for counter in impact_counter %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="counter-card animate-on-scroll animate-fade-up" data-color="{{ counter.display_color }}" style="--counter-color: {{ counter.display_color }};">
+                    <div class="counter-card-icon">
+                        {% if counter.counter_type == 'people' %}
+                            <i class="fas fa-users" style="color: white; font-size: 2.8rem;"></i>
+                        {% elif counter.counter_type == 'projects' %}
+                            <i class="fas fa-project-diagram" style="color: white; font-size: 2.8rem;"></i>
+                        {% elif counter.counter_type == 'schools' %}
+                            <i class="fas fa-school" style="color: white; font-size: 2.8rem;"></i>
+                        {% elif counter.counter_type == 'communities' %}
+                            <i class="fas fa-home" style="color: white; font-size: 2.8rem;"></i>
+                        {% elif counter.counter_type == 'volunteers' %}
+                            <i class="fas fa-hands-helping" style="color: white; font-size: 2.8rem;"></i>
+                        {% elif counter.counter_type == 'funds' %}
+                            <i class="fas fa-donate" style="color: white; font-size: 2.8rem;"></i>
+                        {% else %}
+                            <i class="fas fa-heart" style="color: white; font-size: 2.8rem;"></i>
+                        {% endif %}
+                    </div>
+                    <div class="counter-card-content">
+                        <h3 class="counter-number" data-target="{{ counter.target_number }}" data-prefix="{{ counter.prefix }}" data-suffix="{{ counter.suffix }}">{{ counter.prefix }}0{{ counter.suffix }}</h3>
+                        <p class="counter-title">{{ counter.title }}</p>
+                        <div class="counter-type">{{ counter.get_counter_type_display }}</div>
+                    </div>
+                    <div class="counter-card-bg"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Impact Sections -->
+{% if impact %}
+{% for section in impact %}
+<section class="space section-compact{% if forloop.counter0|divisibleby:2 %} bg-smoke{% endif %}" id="impact-section-{{ forloop.counter }}">
+    <div class="container">
+        <div class="row align-items-center {% if forloop.counter0|divisibleby:2 %}flex-row-reverse{% endif %}">
+            <div class="col-xl-6 col-lg-6">
+                <div class="impact-content">
+                    <div class="title-area mb-35">
+                        <span class="sub-title">Impact Story #{{ forloop.counter }}</span>
+                        <h2 class="sec-title">{{ section.title }}</h2>
+                        {% if section.subtitle %}
+                        <h4 class="impact-subtitle">{{ section.subtitle }}</h4>
+                        {% endif %}
+                    </div>
+                    <div class="impact-description">{{ section.description|linebreaks }}</div>
+                    {% if section.highlight_1_number or section.highlight_2_number or section.highlight_3_number %}
+                    <div class="impact-highlights mt-4">
+                        <div class="row gy-3">
+                            {% if section.highlight_1_number %}
+                            <div class="col-12">
+                                <div class="highlight-item animate-on-scroll animate-fade-up">
+                                    <div class="highlight-number">{{ section.highlight_1_number }}</div>
+                                    <div class="highlight-description">{{ section.highlight_1_description }}</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if section.highlight_2_number %}
+                            <div class="col-12">
+                                <div class="highlight-item animate-on-scroll animate-fade-up" style="animation-delay: 0.2s;">
+                                    <div class="highlight-number">{{ section.highlight_2_number }}</div>
+                                    <div class="highlight-description">{{ section.highlight_2_description }}</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if section.highlight_3_number %}
+                            <div class="col-12">
+                                <div class="highlight-item animate-on-scroll animate-fade-up" style="animation-delay: 0.4s;">
+                                    <div class="highlight-number">{{ section.highlight_3_number }}</div>
+                                    <div class="highlight-description">{{ section.highlight_3_description }}</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="impact-actions mt-4">
+                        <a href="{% url 'charity:donate_now' %}" class="th-btn">Support This Cause<i class="fas fa-heart ms-2"></i></a>
+                        <a href="{% url 'charity:contact' %}" class="th-btn style3 ms-3">Learn More<i class="fas fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="impact-img">
+                    {% if section.section_image %}
+                    <img src="{{ section.section_image.url }}" alt="{{ section.title }}" class="w-100">
+                    {% else %}
+                    <div class="placeholder-img">
+                        <i class="fas fa-image fa-3x text-muted"></i>
+                        <p class="text-muted mt-2">Image coming soon</p>
+                    </div>
+                    {% endif %}
+                    <div class="impact-shape">
+                        <img src="{% static 'assets/img/shape/about_shape_1.png' %}" alt="shape">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+{% endif %}
+
+<!-- Spotlight Statistics -->
+<section class="space section-compact" id="spotlight-stats">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10 col-md-12">
+                <div class="title-area text-center">
+                    <span class="sub-title"><i class="fas fa-trophy me-2"></i>Excellence Metrics</span>
+                    <h2 class="sec-title">Performance by the Numbers</h2>
+                    <p class="sec-text">Outstanding achievements of our top performers across all categories.</p>
+                </div>
+            </div>
+        </div>
+        {% if spotlight_stats %}
+        <div class="row gy-4 justify-content-center" id="spotlight-counters">
+            {% for stat in spotlight_stats %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="spotlight-stat-card animate-on-scroll animate-fade-up" style="--stat-color: {{ stat.color }};">
+                    <div class="stat-card-icon">
+                        <i class="{{ stat.icon_class }}" style="color: {{ stat.color }}; font-size: 2.5rem;"></i>
+                    </div>
+                    <div class="stat-card-content">
+                        <h3 class="stat-value">{{ stat.value }}</h3>
+                        <h4 class="stat-title">{{ stat.title }}</h4>
+                        <p class="stat-description">{{ stat.description }}</p>
+                    </div>
+                    <div class="stat-card-bg" style="background: linear-gradient(135deg, {{ stat.color }}15, {{ stat.color }}05);"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Spotlight Categories -->
+{% if spotlight_categories %}
+{% for category in spotlight_categories %}
+<section class="space section-compact{% if forloop.counter0|divisibleby:2 %} bg-smoke{% endif %}" id="spotlight-{{ category.name }}">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <div class="title-area text-center">
+                    <span class="sub-title" style="color: {{ category.background_color }};"><i class="{{ category.icon_class }} me-2"></i>{{ category.get_name_display }}</span>
+                    <h2 class="sec-title">{{ category.title }}</h2>
+                    {% if category.subtitle %}<p class="sec-text">{{ category.subtitle }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        {% if category.active_items %}
+        <div class="row gy-4">
+            {% for item in category.active_items %}
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="spotlight-item-card animate-on-scroll animate-fade-up{% if item.is_featured %} featured-item{% endif %}">
+                    {% if item.is_featured %}
+                    <div class="featured-badge"><i class="fas fa-crown"></i><span>Featured</span></div>
+                    {% endif %}
+                    <div class="item-image">
+                        {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                        {% else %}
+                        <div class="placeholder-img" style="background: {{ category.background_color }}15;">
+                            <i class="{{ category.icon_class }} fa-3x" style="color: {{ category.background_color }};"></i>
+                        </div>
+                        {% endif %}
+                        <div class="performance-badge" style="background: {{ item.performance_badge_color }};">{{ item.get_performance_level_display }}</div>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h4 class="item-title">{{ item.title }}</h4>
+                            {% if item.subtitle %}<p class="item-subtitle">{{ item.subtitle }}</p>{% endif %}
+                            {% if item.location %}<div class="item-location"><i class="fas fa-map-marker-alt me-1"></i>{{ item.location }}</div>{% endif %}
+                        </div>
+                        <div class="item-description">{{ item.description|truncatewords:25 }}</div>
+                        {% if item.achievements_list %}
+                        <div class="item-achievements">
+                            <h6>Key Achievements:</h6>
+                            <ul class="achievement-list">
+                                {% for achievement in item.achievements_list|slice:":3" %}
+                                <li><i class="fas fa-check-circle me-2" style="color: {{ category.background_color }};"></i>{{ achievement }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <div class="item-footer">
+                            <div class="achievement-score"><span class="score-label">Performance Score:</span><span class="score-value" style="color: {{ category.background_color }};">{{ item.achievement_score }}/100</span></div>
+                            {% if item.contact_info %}
+                            <div class="item-contact">
+                                {% for key, value in item.contact_info.items %}
+                                {% if key == 'email' %}
+                                <a href="mailto:{{ value }}" class="contact-link" title="Email"><i class="fas fa-envelope"></i></a>
+                                {% elif key == 'phone' %}
+                                <a href="tel:{{ value }}" class="contact-link" title="Phone"><i class="fas fa-phone"></i></a>
+                                {% elif key == 'website' %}
+                                <a href="{{ value }}" target="_blank" class="contact-link" title="Website"><i class="fas fa-globe"></i></a>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- View All Button -->
+        <div class="row mt-5"><div class="col-12 text-center">
+            <a href="{% url 'charity:contact' %}" class="th-btn" style="background: {{ category.background_color }};">Learn More About {{ category.get_name_display }}<i class="fas fa-arrow-right ms-2"></i></a>
+        </div></div>
+        {% else %}
+        <div class="row"><div class="col-12 text-center">
+            <div class="empty-state">
+                <i class="fas fa-crown fa-4x text-muted mb-3"></i>
+                <h4>{{ category.get_name_display }} Coming Soon</h4>
+                <p class="text-muted">We're evaluating and selecting the best performers in this category. Check back soon!</p>
+            </div>
+        </div></div>
+        {% endif %}
+    </div>
+</section>
+{% endfor %}
+{% endif %}
+
+<!-- Testimonials Swiper Slider -->
+<section class="testi-area-2 space-bottom" id="testi-sec">
+    <style>
+        /* Scoped styles for Voices of Change cards */
+        .voc-card { border-radius: 16px; border: 1px solid rgba(26,104,91,0.12); background: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.06); transition: transform .2s ease, box-shadow .2s ease; }
+        .voc-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.10); }
+        .voc-accent { height: 4px; width: 100%; background: linear-gradient(90deg, #1A685B 0%, rgba(26,104,91,0.35) 100%); border-top-left-radius: 16px; border-top-right-radius: 16px; }
+        .voc-avatar { width: 82px; height: 82px; object-fit: cover; border-radius: 50%; border: 3px solid rgba(26,104,91,0.25); box-shadow: 0 6px 16px rgba(26,104,91,0.18); }
+        .voc-quote { font-size: 1.04rem; line-height: 1.6; font-style: italic; color: #2e2e2e; }
+        .voc-quote i { color: #1A685B; opacity: .95; }
+        .voc-meta h6 { font-weight: 700; margin-bottom: 2px; }
+        .voc-meta small { color: #6c757d; }
+        .voc-divider { height: 1px; background: rgba(26,104,91,0.12); margin: 8px 0 0; }
+    </style>
+    <div class="container">
+        <div class="title-area text-center">
+            <span class="sub-title after-none before-none">Voices of Change</span>
+            <h2 class="sec-title">What Our Youth &amp; Partners Say</h2>
+        </div>
+        <div class="row g-4 g-xl-5 justify-content-center">
+            {% for testimonial in testimonials %}
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="voc-card h-100">
+                    <div class="voc-accent"></div>
+                    <div class="p-4 pb-0 d-flex align-items-center">
+                        <div class="flex-shrink-0 me-3 me-md-4">
+                            {% if testimonial.image %}
+                                <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="voc-avatar">
+                            {% else %}
+                                <div class="d-inline-flex align-items-center justify-content-center voc-avatar bg-light">
+                                    <i class="fas fa-user text-muted"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="flex-grow-1 voc-meta">
+                            <h6 class="mb-0">{{ testimonial.name }}</h6>
+                            <small>{{ testimonial.title }}</small>
+                        </div>
+                    </div>
+                    <div class="card-body pt-3 px-4 pb-4">
+                        <p class="voc-quote mb-0">
+                            <i class="fas fa-quote-left me-2"></i>
+                            {{ testimonial.quote|default:"" }}
+                            <i class="fas fa-quote-right ms-2"></i>
+                        </p>
+                        <div class="voc-divider"></div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">No testimonials yet.</div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- CTA Section -->
+<section class="cta-area-2 space overflow-hidden bg-theme-dark" id="contact-sec">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="cta-content text-center">
+                    <h2 class="mb-3 text-white fw-semibold">Join YCBF Uganda in Empowering the Next Generation</h2>
+                    <p class="mb-4 text-white">Your support—whether as a donor, volunteer, or partner—directly impacts the lives of Uganda’s youth. Let’s build a brighter, more hopeful future together.</p>
+                    <a href="{% url 'charity:donate_now' %}" class="th-btn">Donate Now<i class="fas fa-arrow-up-right ms-2"></i></a>
+                    <a href="{% url 'charity:contact' %}" class="th-btn style2">Contact Us<i class="fas fa-arrow-up-right ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="space overflow-hidden contact-area-1 position-relative z-index-common" id="contact-section">
+  <div class="container">
+    {% if messages %}
+    <div class="row"><div class="col-12">
+      {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div></div>
+    {% endif %}
+
+    <div class="contact-wrap1">
+      <div class="row gx-60 gy-40">
+        <div class="col-xl-4 col-lg-5">
+          <div class="contact-feature">
+            <div class="box-icon"><i class="fas fa-map-location-dot"></i></div>
+            <div class="media-body">
+              <h3 class="box-title">Address</h3>
+              <p class="box-text">Plot 123, Example Road, Kampala, UG</p>
+            </div>
+          </div>
+          <div class="contact-feature">
+            <div class="box-icon" data-theme-color="#FFAC00"><i class="fas fa-phone-volume"></i></div>
+            <div class="media-body">
+              <h3 class="box-title">Phone</h3>
+              <p class="box-text"><a href="tel:+256770123456">+256 770 123 456</a></p>
+              <p class="box-text"><a href="tel:+256704000000">+256 704 000 000</a></p>
+            </div>
+          </div>
+          <div class="contact-feature">
+            <div class="box-icon" data-theme-color="#122F2A"><i class="fas fa-envelope"></i></div>
+            <div class="media-body">
+              <h3 class="box-title">Email</h3>
+              <p class="box-text"><a href="mailto:info@ycbfuganda.org">info@ycbfuganda.org</a></p>
+              <p class="box-text"><a href="mailto:hello@ycbfuganda.org">hello@ycbfuganda.org</a></p>
+            </div>
+          </div>
+          <div class="contact-feature" data-theme-color="#FF5528">
+            <div class="box-icon"><i class="fas fa-comment-question"></i></div>
+            <div class="media-body">
+              <h3 class="box-title">Have Questions?</h3>
+              <p class="box-text">Discover more by visiting us or joining our community</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 col-lg-7">
+          <div class="contact-map mb-4 mb-lg-0">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3644.7310056272386!2d89.2286059153658!3d24.00527418490799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fe9b97badc6151%3A0x30b048c9fb2129bc!2sAngfuztheme!5e0!3m2!1sen!2sbd!4v1651028958211!5m2!1sen!2sbd" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-page-form-wrap space-top">
+      <div class="row gy-40">
+        <div class="col-xl-6 align-self-end d-none d-xl-block">
+          <div class="contact-thumb1-1">
+            <img src="{% static 'assets/img/normal/contact_1_1.png' %}" alt="img">
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="contact-form-v1 contact-page-form">
+            <form action="{% url 'charity:contact' %}" method="POST" class="contact-form style-border">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="phone_number" placeholder="Phone Number">
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <textarea name="message" class="form-control" rows="5" placeholder="Write your message" required></textarea>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="th-btn"><i class="fas fa-paper-plane me-2"></i>Send Message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'assets/js/impact-animations.js' %}"></script>
+<script src="{% static 'assets/js/spotlight-animations.js' %}"></script>
+{% endblock %}
+
+<!-- Programs (exact replica from programs.html) -->
+<section class="section-compact">
+    <div class="container">
+        <div class="programs-hero p-4 p-md-5 mb-5 text-center">
+          <h2 class="mb-3">Our Programs</h2>
+          <p class="lead mb-0">Transforming Lives Through Skill Development & Mentorship</p>
+        </div>
+        
+        <!-- Leadership & Life Skills -->
+        <div class="mb-5">
+            <div class="category-head mb-3">
+              <h3 class="mb-0">Leadership & Life Skills</h3>
+              <span class="category-count">(1 program)</span>
+            </div>
+            <p class="mb-4">Empowering youth with essential life skills for personal and professional success.</p>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm program-card position-relative">
+                        <span class="badge bg-primary program-badge">Leadership</span>
+                        <img src="{% static 'assets/img/programs/leadership.jpg' %}" class="card-img-top" alt="Leadership & Life Skills">
+                        <div class="card-body">
+                            <h5 class="card-title">Youth Leadership Development</h5>
+                            <p class="card-text">Workshops and mentorship to build confidence, communication, and leadership in Uganda's youth.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="#" class="btn btn-sm btn-primary">Learn More</a>
+                            <button class="btn btn-sm btn-soft" disabled>Active</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entrepreneurship & Innovation -->
+        <div class="mb-5">
+            <div class="category-head mb-3">
+              <h3 class="mb-0">Entrepreneurship & Innovation</h3>
+              <span class="category-count">(1 program)</span>
+            </div>
+            <p class="mb-4">Fostering innovation and business acumen among young entrepreneurs.</p>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm program-card position-relative">
+                        <span class="badge bg-success program-badge">Entrepreneurship</span>
+                        <img src="{% static 'assets/img/programs/entrepreneurship.jpg' %}" class="card-img-top" alt="Entrepreneurship & Innovation">
+                        <div class="card-body">
+                            <h5 class="card-title">Youth Business Incubator</h5>
+                            <p class="card-text">Equipping young people with entrepreneurial skills and creative thinking for a brighter future.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="#" class="btn btn-sm btn-primary">Learn More</a>
+                            <button class="btn btn-sm btn-soft" disabled>Active</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Digital Literacy & IT Skills -->
+        <div class="mb-5">
+            <div class="category-head mb-3">
+              <h3 class="mb-0">Digital Literacy & IT Skills</h3>
+              <span class="category-count">(1 program)</span>
+            </div>
+            <p class="mb-4">Bridging the digital divide through technology education.</p>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm program-card position-relative">
+                        <span class="badge bg-info program-badge">Technology</span>
+                        <img src="{% static 'assets/img/programs/digital-literacy.jpg' %}" class="card-img-top" alt="Digital Literacy & IT Skills">
+                        <div class="card-body">
+                            <h5 class="card-title">Tech Skills for the Future</h5>
+                            <p class="card-text">Comprehensive IT training to prepare youth for the digital economy and future job market.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="#" class="btn btn-sm btn-primary">Learn More</a>
+                            <button class="btn btn-sm btn-soft" disabled>Active</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Clubs (exact replica from clubs.html) -->
+<section class="section-compact">
+    <div class="container">
+        <h2 class="mb-4 text-center">Our Clubs</h2>
+        <p class="text-center mb-5">Highlighting youth-led clubs making a difference across Uganda: XYZ Youth Club, ABC Tech Club, Green Warriors, Future Leaders, and more.</p>
+        <div class="row">
+            {% for club in clubs %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm text-center">
+                    <div class="mb-3">
+                        <img src="{{ club.icon.url }}" alt="{{ club.title }} icon" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
+                    </div>
+                    <h5 class="card-title">{{ club.title }}</h5>
+                    <blockquote class="blockquote mb-0">
+                        <p class="card-text">“{{ club.comment }}”</p>
+                    </blockquote>
+                    <small class="text-muted">Region: {{ club.region }}</small>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No clubs available at the moment. Look out for our best-performing clubs in your region!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Partner Schools (exact replica from partner_schools.html) -->
+<section class="section-compact">
+    <div class="container">
+        <h2 class="mb-4 text-center">Our Partner Schools</h2>
+        <p class="text-center mb-5">Proudly partnering with schools across Uganda to empower and inspire youth for a brighter future.</p>
+        <div class="row">
+            {% for school in schools %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ school.image.url }}" class="card-img-top" alt="{{ school.name }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ school.name }}</h5>
+                        <blockquote class="blockquote mb-0">
+                            <p>“{{ school.comment }}”</p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No partner schools available at the moment. Join our network of schools making a difference in Uganda!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Donations listing (exact replica from donation.html, compact spacing) -->
+<section class="space section-compact" id="donation-sec-home">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="title-area text-center">
+          <span class="sub-title before-none after-none"><i class="far fa-heart text-theme"></i> Lets Start Donating</span>
+          <h2 class="sec-title">See Your Impact: Transparent Donation Causes</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row gy-30">
+      {% for item in donations %}
+      <div class="col-xl-6">
+        <div class="donation-card style3 h-100">
+          <div class="box-thumb position-relative">
+            {% if item.icon %}
+              <a href="{% url 'charity:donation_details' item.id %}"><img src="{{ item.icon.url }}" alt="{{ item.title }}"></a>
+            {% else %}
+              <a href="{% url 'charity:donation_details' item.id %}"><img src="{% static 'assets/img/donation/donation1-1.png' %}" alt="{{ item.title }}"></a>
+            {% endif %}
+            {% if item.progress_percent %}
+              <div class="donation-card-tag{% if forloop.counter|divisibleby:2 %} bg-theme2{% endif %}">{{ item.progress_percent }}%</div>
+            {% endif %}
+            <div class="donation-card-shape" data-mask-src="{% static 'assets/img/donation/donation-card-shape2-1.png' %}"></div>
+          </div>
+          <div class="box-content">
+            <h3 class="box-title"><a href="{% url 'charity:donation_details' item.id %}">{{ item.title }}</a></h3>
+            {% if item.description %}<p>{{ item.description|truncatewords:28 }}</p>{% endif %}
+            <div class="donation-card_progress-wrap">
+              <div class="progress"><div class="progress-bar" style="width: {{ item.progress_percent }}%;"></div></div>
+              <div class="donation-card_progress-content">
+                <span class="donation-card_raise">Raised <span class="donation-card_raise-number">${{ item.raised_amount }}</span></span>
+                <span class="donation-card_goal">Goal <span class="donation-card_goal-number">${{ item.goal_amount }}</span></span>
+              </div>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="{% url 'charity:donation_details' item.id %}" class="th-btn style6">Read More <i class="fas fa-arrow-up-right ms-2"></i></a>
+              <a href="{% url 'charity:donate_now' %}" class="th-btn style6">Donate Now <i class="fas fa-arrow-up-right ms-2"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12"><p class="text-center">No donation causes available yet.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- Work Process (replica from about.html) -->
+<section class="space-top section-compact" id="work-process-home">
+  <div class="container">
+    <div class="title-area text-center">
+      <span class="sub-title after-none before-none">Work Process</span>
+      <h2 class="sec-title">Our Donating Work Process</h2>
+    </div>
+    <div class="row gy-40 justify-content-center">
+      <div class="col-lg-4 col-md-6 process-card-wrap">
+        <div class="process-card">
+          <div class="process-card-thumb-wrap">
+            <div class="process-card-thumb" data-mask-src="{% static 'assets/img/process/process-card-shape.png' %}"><img src="{% static 'assets/img/process/process-card-1-1.png' %}" alt="img"></div>
+            <div class="process-card-icon"><img src="{% static 'assets/img/icon/process-icon1-1.svg' %}" alt="img"></div>
+            <div class="process-card-shape"><img src="{% static 'assets/img/process/process-card-shape2.png' %}" alt="img"></div>
+          </div>
+          <div class="box-content"><h3 class="box-title">Awareness & Engagement</h3><p class="box-text">To inform and engage potential donors and supporters about the charity’s mission and the cause it supports. Utilize various channels such as social media.</p></div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 process-card-wrap">
+        <div class="process-card">
+          <div class="process-card-thumb-wrap">
+            <div class="process-card-thumb" data-mask-src="{% static 'assets/img/process/process-card-shape.png' %}"><img src="{% static 'assets/img/process/process-card-1-1.png' %}" alt="img"></div>
+            <div class="process-card-icon"><img src="{% static 'assets/img/icon/process-icon1-2.svg' %}" alt="img"></div>
+            <div class="process-card-shape"><img src="{% static 'assets/img/process/process-card-shape2.png' %}" alt="img"></div>
+          </div>
+          <div class="box-content"><h3 class="box-title">Donation Collection</h3><p class="box-text">Set up a secure and user-friendly online donation platform that accepts multiple payment methods and allows for both one-time and recurring donations.</p></div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 process-card-wrap">
+        <div class="process-card">
+          <div class="process-card-thumb-wrap">
+            <div class="process-card-thumb" data-mask-src="{% static 'assets/img/process/process-card-shape.png' %}"><img src="{% static 'assets/img/process/process-card-1-1.png' %}" alt="img"></div>
+            <div class="process-card-icon"><img src="{% static 'assets/img/icon/process-icon1-3.svg' %}" alt="img"></div>
+            <div class="process-card-shape"><img src="{% static 'assets/img/process/process-card-shape2.png' %}" alt="img"></div>
+          </div>
+          <div class="box-content"><h3 class="box-title">Impact and Accountability</h3><p class="box-text">Allocate funds to specific projects and initiatives that align with the charity’s mission, ensuring that resources are used efficiently and effectively.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Voices of Change (replica from about.html) -->
+<section class="space section-compact" id="voices-of-change-home">
+  <div class="container">
+    <div class="row justify-content-center mb-4">
+      <div class="col-lg-8 text-center">
+        <span class="sub-title after-none before-none"><i class="fas fa-quote-left text-theme"></i> Voices of Change</span>
+        <h3 class="sec-title mb-4">What Our Youth Leaders Say</h3>
+      </div>
+    </div>
+    <div class="row g-3 g-md-4 justify-content-center">
+      {% for voice in voices %}
+      <div class="col-sm-6 col-lg-4">
+        <div class="card shadow-sm h-100 border-0" style="border-radius: 14px;">
+          <div class="p-3 pb-0 d-flex align-items-center justify-content-center">
+            {% if voice.image %}
+            <img src="{{ voice.image.url }}" alt="{{ voice.name }}" class="rounded-circle" style="width:70px;height:70px;object-fit:cover;border:2px solid #1A685B33;">
+            {% else %}
+            <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center" style="width:70px;height:70px;border:2px solid #1A685B33;">
+              <i class="fas fa-user text-muted"></i>
+            </div>
+            {% endif %}
+          </div>
+          <div class="card-body text-center">
+            <h6 class="mb-0">{{ voice.name }}</h6>
+            <small class="text-muted d-block mb-2">{{ voice.title }}</small>
+            <p class="mb-0" style="font-size:.95rem;"><i class="fas fa-quote-left me-2" style="color:#1A685B;"></i>{{ voice.quote|default:"" }}</p>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center text-muted">No voices of change available at the moment.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

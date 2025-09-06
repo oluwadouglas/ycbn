@@ -1,0 +1,68 @@
+{% extends 'charity/base.html' %}
+{% load static %}
+{% block title %}Programs | YCBF Uganda{% endblock %}
+{% block extra_css %}
+<style>
+  .program-card img{aspect-ratio:16/10;object-fit:cover}
+  .program-card .card-title{font-weight:700}
+  .program-card .card-text{min-height:3.6em}
+  .category-head{display:flex;align-items:end;gap:.75rem}
+  .category-count{font-size:.9rem;color:#6c757d}
+  .program-badge{position:absolute;top:.5rem;left:.5rem}
+  .card-footer{background:transparent}
+  @media (prefers-color-scheme: dark){.category-count{color:#adb5bd}}
+  .programs-hero{background:linear-gradient(135deg,#f8fafc,#eef2ff);border-radius:12px}
+  .programs-hero .lead{color:#475569}
+  @media (prefers-color-scheme: dark){.programs-hero{background:linear-gradient(135deg,#0b1220,#131c2b)}.programs-hero .lead{color:#cbd5e1}}
+  .btn-soft{background:#f1f5f9;color:#0f172a}
+  .btn-soft:hover{background:#e2e8f0}
+  @media (prefers-color-scheme: dark){.btn-soft{background:#0f172a;color:#e2e8f0}.btn-soft:hover{background:#111827}}
+</style>
+{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="programs-hero p-4 p-md-5 mb-5 text-center">
+          <h2 class="mb-3">Our Programs</h2>
+          <p class="lead mb-0">Empowering youth through Education & Skills, Health & Awareness, Guidance & Counseling, School-Based Clubs, and Community Engagement.</p>
+        </div>
+        {% for category in categories %}
+        <div class="mb-5">
+            <div class="category-head mb-3">
+              <h3 class="mb-0">{{ category.name }}</h3>
+              <span class="category-count">({{ category.programs.count }} programs)</span>
+            </div>
+            {% if category.description %}<p class="mb-4">{{ category.description }}</p>{% endif %}
+            <div class="row">
+                {% for program in category.programs.all %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                  <div class="card h-100 shadow-sm program-card position-relative">
+                      <span class="badge bg-primary program-badge">{{ category.name }}</span>
+                      {% if program.image %}
+                        <img src="{{ program.image.url }}" class="card-img-top" alt="{{ program.title }}">
+                      {% else %}
+                        <img src="{% static 'assets/img/placeholder/placeholder-16x10.png' %}" class="card-img-top" alt="{{ program.title }}">
+                      {% endif %}
+                      <div class="card-body">
+                          <h5 class="card-title">{{ program.title }}</h5>
+                          <p class="card-text">{{ program.description|default:"No description yet."|truncatewords:30 }}</p>
+                      </div>
+                      <div class="card-footer d-flex justify-content-between align-items-center">
+                        <a href="{% url 'charity:program_detail' program.id %}" class="btn btn-sm btn-primary">Learn more</a>
+                        <button class="btn btn-sm btn-soft" disabled>Active</button>
+                      </div>
+                  </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <p class="text-center">No programs available in this category. Explore Leadership & Life Skills, Entrepreneurship & Innovation, Digital Literacy & IT Skills, and more.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No program categories available at the moment. YCBF Uganda is committed to holistic youth development!</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
