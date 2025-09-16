@@ -1,0 +1,121 @@
+/* Enhanced Header Styles */
+.header-default {
+    position: relative;
+}
+
+.sticky-wrapper {
+    background: var(--theme-color) !important;
+    padding: 15px 0 !important;
+    position: relative;
+}
+
+.header-main-nav {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 30px !important;
+    position: relative !important;
+}
+
+/* Logo Styles */
+.header-logo {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.header-logo a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none !important;
+}
+
+.header-logo img {
+    height: 45px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    border-radius: 8px !important;
+}
+
+.header-logo .logo-text {
+    color: #fff !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+/* Navigation Menu */
+.main-menu {
+    flex: 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.main-menu > ul {
+    display: flex !important;
+    align-items: center !important;
+    gap: 25px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.main-menu > ul > li > a {
+    color: #fff !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    padding: 8px 12px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+}
+
+.main-menu > ul > li > a:hover {
+    opacity: 0.85 !important;
+}
+
+/* User Button */
+.header-button {
+    margin-left: auto !important;
+}
+
+.header-button .th-btn {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    padding: 8px 20px !important;
+    border-radius: 25px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.header-button .th-btn:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Mobile Styles */
+@media (max-width: 991px) {
+    .sticky-wrapper {
+        padding: 10px 0 !important;
+    }
+
+    .header-main-nav {
+        gap: 15px !important;
+    }
+
+    .header-logo img {
+        height: 35px !important;
+    }
+
+    /* Mobile Menu Toggle Button */
+    .th-menu-toggle {
+        background: transparent !important;
+        border: none !important;
+        color: #fff !important;
+        font-size: 24px !important;
+        padding: 5px !important;
+        margin-left: auto !important;
+    }
+}

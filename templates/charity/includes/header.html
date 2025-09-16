@@ -1,0 +1,191 @@
+{% load static %}
+<header class="th-header header-default">
+    <div class="menu-top">
+        <div class="container">
+            <div class="row justify-content-center justify-content-lg-between align-items-center gy-2">
+                <div class="col-auto d-none d-lg-block">
+                    <div class="header-logo">
+                        <a href="{% url 'charity:home' %}"><img src="{% static 'assets/img/ycbn-logo.jpg' %}" alt="YCBN - Youth Capacity Building Network"></a>
+                    </div>
+                </div>
+                <div class="col-auto d-none d-md-block">
+                    <div class="info-card-wrap">
+                        <div class="info-card">
+                            <div class="box-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="bg-shape1" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                <div class="bg-shape2" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                            </div>
+                            <div class="box-content">
+                                <p class="box-text">Locate Address:</p>
+                                <h4 class="box-title"><a href="https://www.google.com/maps">Your City, Country</a></h4>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="box-icon">
+                                <i class="fas fa-phone"></i>
+                                <div class="bg-shape1" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                <div class="bg-shape2" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                            </div>
+                            <div class="box-content">
+                                <p class="box-text">Call us any time:</p>
+                                <h4 class="box-title"><a href="tel:+1234567890">+123-456-7890</a></h4>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="box-icon">
+                                <i class="fas fa-envelope-open"></i>
+                                <div class="bg-shape1" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                                <div class="bg-shape2" data-mask-src="{% static 'assets/img/shape/info_card_icon_bg_shape_1_1.png' %}"></div>
+                            </div>
+                            <div class="box-content">
+                                <p class="box-text">Email us any time:</p>
+                                <h4 class="box-title"><a href="mailto:info@ycbf.org">info@ycbf.org</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto header-social-col">
+                    <div class="th-social">
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sticky-wrapper">
+        <!-- Main Menu Area -->
+        <div class="container">
+            <div class="menu-area">
+                <div class="menu-area-wrap">
+                    <div class="col-auto d-inline-block d-lg-none">
+                        <div class="header-logo">
+                            <a href="{% url 'charity:home' %}"><img src="{% static 'assets/img/logo-white.svg' %}" alt="YCBF Charity"></a>
+                        </div>
+                    </div>
+                    <nav class="main-menu d-none d-lg-block">
+                        <ul>
+                            <li class="menu-item-has-children">
+                                <a href="{% url 'charity:home' %}">Home</a>
+                                <ul class="mega-menu mega-menu-content">
+                                    <li>
+                                        <div class="container">
+                                            <div class="row gy-4">
+                                                <div class="col-lg-4">
+                                                    <div class="mega-menu-box">
+                                                        <div class="mega-menu-img">
+                                                            <img src="{% static 'assets/img/pages/index.jpg' %}" alt="Home One">
+                                                            <div class="btn-wrap">
+                                                                <a href="{% url 'charity:home' %}" class="th-btn ">Home One</a>
+                                                            </div>
+                                                        </div>
+                                                        <h3 class="mega-menu-title"><a href="{% url 'charity:home' %}">Home One</a></h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="mega-menu-box">
+                                                        <div class="mega-menu-img">
+                                                            <img src="{% static 'assets/img/pages/home-2.jpg' %}" alt="Home Two">
+                                                            <div class="btn-wrap">
+                                                                <a href="{% url 'charity:home_2' %}" class="th-btn ">Home Two</a>
+                                                            </div>
+                                                        </div>
+                                                        <h3 class="mega-menu-title"><a href="{% url 'charity:home_2' %}">Home Two</a></h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="mega-menu-box">
+                                                        <div class="mega-menu-img">
+                                                            <img src="{% static 'assets/img/pages/home-3.jpg' %}" alt="Home Three">
+                                                            <div class="btn-wrap">
+                                                                <a href="{% url 'charity:home_3' %}" class="th-btn ">Home Three</a>
+                                                            </div>
+                                                        </div>
+                                                        <h3 class="mega-menu-title"><a href="{% url 'charity:home_3' %}">Home Three</a></h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="mega-menu-box">
+                                                        <div class="mega-menu-img">
+                                                            <img src="{% static 'assets/img/pages/home-4.jpg' %}" alt="Home Four">
+                                                            <div class="btn-wrap">
+                                                                <a href="{% url 'charity:home_4' %}" class="th-btn ">Home Four</a>
+                                                            </div>
+                                                        </div>
+                                                        <h3 class="mega-menu-title"><a href="{% url 'charity:home_4' %}">Home Four</a></h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="mega-menu-box">
+                                                        <div class="mega-menu-img">
+                                                            <img src="{% static 'assets/img/pages/home-5.jpg' %}" alt="Home Five">
+                                                            <div class="btn-wrap">
+                                                                <a href="{% url 'charity:home_5' %}" class="th-btn ">Home Five</a>
+                                                            </div>
+                                                        </div>
+                                                        <h3 class="mega-menu-title"><a href="{% url 'charity:home_5' %}">Home Five</a></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'charity:about' %}">About Us</a></li>
+                            <li class="menu-item-has-children">
+                                <a href="#">Donations</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{% url 'charity:donations' %}">Donations</a></li>
+                                    <li><a href="{% url 'charity:donate_now' %}">Donate Now</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="#">Pages</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item-has-children">
+                                        <a href="#">Shop</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{% url 'charity:shop' %}">Shop</a></li>
+                                            <li><a href="{% url 'charity:cart' %}">Cart Page</a></li>
+                                            <li><a href="{% url 'charity:checkout' %}">Checkout</a></li>
+                                            <li><a href="{% url 'charity:wishlist' %}">Wishlist</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'charity:team' %}">Volunteers</a></li>
+                                    <li><a href="{% url 'charity:add_team' %}">Become A Volunteer</a></li>
+                                    <li><a href="{% url 'charity:gallery' %}">Gallery</a></li>
+                                    <li><a href="{% url 'charity:pricing' %}">Pricing</a></li>
+                                    <li><a href="{% url 'charity:faq' %}">FAQS</a></li>
+                                    <li><a href="{% url 'charity:testimonial' %}">Testimonials</a></li>
+                                    <li><a href="{% url 'charity:error' %}">Error Page</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="#">Articles</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{% url 'charity:articles' %}">Articles</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{% url 'charity:contact' %}">Contact Us</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="header-notice"><img class="me-1" src="{% static 'assets/img/icon/heart-icon.svg' %}" alt="img">Are you ready to help them? Let's become volunteers...</p>
+                </div>
+                <div class="header-button">
+                    <button type="button" class="icon-btn style2 searchBoxToggler d-lg-block d-none"><i class="fas fa-search"></i></button>
+                    <button type="button" class="icon-btn sideMenuToggler">
+                        <span class="badge">5</span>
+                        <i class="fas fa-cart-shopping"></i>
+                    </button>
+                    <a href="{% url 'charity:donate_now' %}" class="th-btn style3 d-lg-block d-none"><i class="fas fa-heart me-2"></i> Donate Now</a>
+                    <button type="button" class="icon-btn th-menu-toggle d-lg-none"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
